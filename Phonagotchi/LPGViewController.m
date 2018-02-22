@@ -11,6 +11,7 @@
 @interface LPGViewController ()
 
 @property (nonatomic) UIImageView *petImageView;
+@property (nonatomic) Pet *pet;
 
 @end
 
@@ -20,6 +21,8 @@
 {
     [super viewDidLoad];
 	
+    self.pet = [[Pet alloc] init];
+    
     self.view.backgroundColor = [UIColor colorWithRed:(252.0/255.0) green:(240.0/255.0) blue:(228.0/255.0) alpha:1.0];
     
     self.petImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -44,6 +47,25 @@
                                   attribute:NSLayoutAttributeCenterY
                                  multiplier:1.0
                                    constant:0.0].active = YES;
+    
+    self.petImageView.userInteractionEnabled = YES;
+    
+    UIPanGestureRecognizer *pettingRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePetting:)];
+    [self.petImageView addGestureRecognizer:pettingRecognizer];
+}
+
+-(void)handlePetting:(UIPanGestureRecognizer*)pettingRecognizer {
+
+    CGPoint vel = [pettingRecognizer velocityInView:self.petImageView];
+    CGFloat velocity = sqrt((vel.x*vel.x)+(vel.y*vel.y));
+    [self.pet petting:velocity];
+    if(self.pet.isGrumpy) {
+        self.petImageView.image = self.pet.grumpyImage;
+    } else {
+        self.petImageView.image = self.pet.defaultImage;
+    }
+    NSLog(@"%.02f", velocity);
+
     
 }
 
