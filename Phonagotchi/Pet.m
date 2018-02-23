@@ -16,17 +16,29 @@
     if (self) {
         _defaultImage = [UIImage imageNamed:@"default.png"];
         _grumpyImage = [UIImage imageNamed:@"grumpy.png"];
+        _sleepyImage = [UIImage imageNamed:@"sleeping.png"];
+        _restfulness = 1;
     }
     return self;
 }
 
 -(void)petting:(float)velocity {
     //if velocity is a certain velocity, is pet grumpy??
-    if(velocity > 1000) {
-        self.isGrumpy = YES;
-    } else {
-        self.isGrumpy = NO;
+    switch(self.restfulness) {
+        case 2:
+            if(velocity > 2000) {
+                self.isGrumpy = YES;
+            } else {
+                self.isGrumpy = NO;
+            }
+        case 1:
+            if(velocity > 1000) {
+                self.isGrumpy = YES;
+            } else {
+                self.isGrumpy = NO;
+            }
     }
+    
 }
 
 @end

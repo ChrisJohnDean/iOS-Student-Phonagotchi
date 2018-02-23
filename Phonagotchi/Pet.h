@@ -13,7 +13,9 @@
 
 @property (nonatomic) UIImage *defaultImage;
 @property (nonatomic) UIImage *grumpyImage;
+@property (nonatomic) UIImage *sleepyImage;
 @property (nonatomic) BOOL isGrumpy;
+@property (nonatomic) int restfulness;
 
 -(void)petting:(float)velocity;
 
